@@ -1,88 +1,168 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function App() {
-  const expiryData = [
-    { name: 'Paracetamol 650mg', batch: 'B204', stock: '120 Qty', date: '2026-08-15', status: 'Expiring Soon', color: 'bg-amber-100 text-amber-800 border-amber-300' },
-    { name: 'Amoxicillin 500mg', batch: 'AM99', stock: '45 Qty', date: '2026-06-30', status: 'Expired', color: 'bg-red-100 text-red-800 border-red-300' },
-    { name: 'Azithromycin 250mg', batch: 'AZ12', stock: '200 Qty', date: '2027-01-10', status: 'Safe', color: 'bg-emerald-100 text-emerald-800 border-emerald-300' },
-    { name: 'Cetirizine 10mg', batch: 'CT88', stock: '80 Qty', date: '2026-08-01', status: 'Expiring Soon', color: 'bg-amber-100 text-amber-800 border-amber-300' },
-  ];
+  const [activeTab, setActiveTab] = useState('product');
+  const [fromDate, setFromDate] = useState('2026-07-01');
+  const [toDate, setToDate] = useState('2026-07-24');
 
   return (
-    <div className="min-h-screen bg-slate-100 font-sans">
-      <header className="bg-emerald-700 text-white shadow-md p-4">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
+    <div style={{ fontFamily: 'sans-serif', backgroundColor: '#f1f5f9', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      
+      {/* Top Header */}
+      <header style={{ backgroundColor: '#047857', color: 'white', padding: '16px 24px', width: '100%' }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
-            <h1 className="text-2xl font-bold">Rootwell Pharma</h1>
-            <p className="text-xs text-emerald-100">Rohit ERP - Management System</p>
+            <h1 style={{ fontSize: '24px', fontWeight: 'bold', margin: 0 }}>Rootwell Pharma</h1>
+            <p style={{ fontSize: '12px', color: '#a7f3d0', margin: '2px 0 0 0' }}>Rohit ERP - Management System</p>
           </div>
-          <span className="bg-emerald-800 text-xs px-3 py-1 rounded-full border border-emerald-600">v1.0 Active</span>
+          <span style={{ backgroundColor: '#065f46', border: '1px solid #059669', fontSize: '12px', padding: '4px 12px', borderRadius: '9999px' }}>v1.0 Active</span>
         </div>
       </header>
 
-      <nav className="bg-white shadow-sm border-b">
-        <div className="max-w-6xl mx-auto flex space-x-2 p-2 overflow-x-auto text-sm font-medium">
-          {['GST Billing', 'Product Master', 'Customer Master', 'Supplier Master', 'Purchase Management'].map((tab) => (
-            <button key={tab} className="px-4 py-2 rounded-lg text-slate-600 hover:bg-slate-100">
-              {tab}
-            </button>
-          ))}
-          <button className="px-4 py-2 rounded-lg bg-emerald-600 text-white font-semibold shadow-sm">
-            ⚠️ Expiry Alert & Report
-          </button>
+      {/* Main Layout Container */}
+      <div style={{ display: 'flex', maxWidth: '1280px', width: '100%', margin: '24px auto', padding: '0 16px', gap: '24px', flex: 1 }}>
+        
+        {/* Left Sidebar */}
+        <div style={{ width: '260px', backgroundColor: 'white', borderRadius: '12px', border: '1px solid #e2e8f0', padding: '16px', height: 'fit-content', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <button onClick={() => setActiveTab('dashboard')} style={btnStyle(activeTab === 'dashboard')}>📊 Dashboard</button>
+          <button onClick={() => setActiveTab('billing')} style={btnStyle(activeTab === 'billing')}>🧾 GST Billing</button>
+          <button onClick={() => setActiveTab('product')} style={btnStyle(activeTab === 'product')}>📦 Product & Stock Report</button>
+          <button onClick={() => setActiveTab('customer')} style={btnStyle(activeTab === 'customer')}>👤 Customer Master</button>
+          <button onClick={() => setActiveTab('supplier')} style={btnStyle(activeTab === 'supplier')}>🚛 Supplier Master</button>
+          <button onClick={() => setActiveTab('purchase')} style={btnStyle(activeTab === 'purchase')}>🛒 Purchase Management</button>
+          <button onClick={() => setActiveTab('accounts')} style={btnStyle(activeTab === 'accounts')}>💳 Accounts & Payments</button>
+          <button onClick={() => setActiveTab('expiry')} style={btnStyle(activeTab === 'expiry')}>⚠️ Expiry Alert & Report</button>
         </div>
-      </nav>
 
-      <main className="max-w-6xl mx-auto p-6 space-y-6">
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
-          <h2 className="text-xl font-bold text-slate-800 mb-1">⚠️ Expiry Alert & Report</h2>
-          <p className="text-slate-500 text-sm mb-6">Monitor expired and near-expiry medicine inventory in real-time.</p>
+        {/* Right Main Content */}
+        <main style={{ flex: 1 }}>
+          <div style={{ backgroundColor: 'white', borderRadius: '12px', border: '1px solid #e2e8f0', padding: '24px' }}>
+            
+            {/* PRODUCT REPORT PAGE */}
+            {activeTab === 'product' && (
+              <div>
+                <h2 style={{ fontSize: '20px', fontWeight: 'bold', color: '#1e293b', marginBottom: '4px' }}>📦 Product Sale & Closing Stock Summary</h2>
+                <p style={{ color: '#64748b', fontSize: '14px', marginBottom: '20px' }}>Filter sales and closing stock valuation by date range.</p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <div className="p-4 rounded-lg bg-red-50 border border-red-200">
-              <span className="text-xs text-red-600 font-bold uppercase">Expired Stock</span>
-              <p className="text-2xl font-bold text-red-700 mt-1">1 Items</p>
-            </div>
-            <div className="p-4 rounded-lg bg-amber-50 border border-amber-200">
-              <span className="text-xs text-amber-600 font-bold uppercase">Near Expiry</span>
-              <p className="text-2xl font-bold text-amber-700 mt-1">2 Items</p>
-            </div>
-            <div className="p-4 rounded-lg bg-slate-50 border border-slate-200">
-              <span className="text-xs text-slate-500 font-bold uppercase">Total Tracked Stock</span>
-              <p className="text-2xl font-bold text-slate-700 mt-1">4 Items</p>
-            </div>
+                {/* 📅 DATE FILTER BOX */}
+                <div style={{ backgroundColor: '#f8fafc', border: '2px solid #059669', padding: '16px', borderRadius: '10px', display: 'flex', gap: '16px', alignItems: 'flex-end', marginBottom: '24px' }}>
+                  <div style={{ flex: 1 }}>
+                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 'bold', color: '#047857', marginBottom: '6px' }}>📅 From Date (कुठून)</label>
+                    <input type="date" value={fromDate} onChange={(e) => setFromDate(e.target.value)} style={inputStyle} />
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 'bold', color: '#047857', marginBottom: '6px' }}>📅 To Date (कुठंपर्यंत)</label>
+                    <input type="date" value={toDate} onChange={(e) => setToDate(e.target.value)} style={inputStyle} />
+                  </div>
+                  <button style={{ backgroundColor: '#059669', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer', fontSize: '14px' }}>
+                    🔍 Filter Report
+                  </button>
+                </div>
+
+                {/* Stat Summary Cards */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '24px' }}>
+                  <div style={cardBox('#eff6ff', '#bfdbfe')}><div style={{ fontSize: '11px', fontWeight: 'bold', color: '#2563eb' }}>TOTAL SALE QUANTITY</div><div style={{ fontSize: '24px', fontWeight: 'bold', color: '#1d4ed8', marginTop: '4px' }}>580 Qty</div></div>
+                  <div style={cardBox('#faf5ff', '#e9d5ff')}><div style={{ fontSize: '11px', fontWeight: 'bold', color: '#9333ea' }}>TOTAL SALE VALUE</div><div style={{ fontSize: '24px', fontWeight: 'bold', color: '#7e22ce', marginTop: '4px' }}>₹ 22,540</div></div>
+                  <div style={cardBox('#f0fdf4', '#bbf7d0')}><div style={{ fontSize: '11px', fontWeight: 'bold', color: '#16a34a' }}>TOTAL CLOSING QUANTITY</div><div style={{ fontSize: '24px', fontWeight: 'bold', color: '#15803d', marginTop: '4px' }}>445 Qty</div></div>
+                  <div style={cardBox('#fffbeb', '#fde68a')}><div style={{ fontSize: '11px', fontWeight: 'bold', color: '#d97706' }}>TOTAL CLOSING VALUE</div><div style={{ fontSize: '24px', fontWeight: 'bold', color: '#b45309', marginTop: '4px' }}>₹ 21,870</div></div>
+                </div>
+
+                {/* Table */}
+                <div style={{ overflowX: 'auto', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                  <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '14px' }}>
+                    <thead>
+                      <tr style={{ backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
+                        <th style={thStyle}>Medicine Name</th>
+                        <th style={thStyle}>Sale Quantity</th>
+                        <th style={thStyle}>Sale Value (₹)</th>
+                        <th style={thStyle}>Closing Quantity</th>
+                        <th style={thStyle}>Closing Value (₹)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
+                        <td style={{ padding: '12px', fontWeight: 'bold', color: '#0f172a' }}>Paracetamol 650mg</td>
+                        <td style={{ padding: '12px', color: '#2563eb', fontWeight: 'bold' }}>80 Qty</td>
+                        <td style={{ padding: '12px', fontWeight: 'bold' }}>₹ 2,280.00</td>
+                        <td style={{ padding: '12px', color: '#16a34a', fontWeight: 'bold' }}>120 Qty</td>
+                        <td style={{ padding: '12px', fontWeight: 'bold', color: '#0f172a' }}>₹ 2,700.00</td>
+                      </tr>
+                      <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
+                        <td style={{ padding: '12px', fontWeight: 'bold', color: '#0f172a' }}>Amoxicillin 500mg</td>
+                        <td style={{ padding: '12px', color: '#2563eb', fontWeight: 'bold' }}>105 Qty</td>
+                        <td style={{ padding: '12px', fontWeight: 'bold' }}>₹ 7,560.00</td>
+                        <td style={{ padding: '12px', color: '#dc2626', fontWeight: 'bold' }}>45 Qty</td>
+                        <td style={{ padding: '12px', fontWeight: 'bold', color: '#0f172a' }}>₹ 2,610.00</td>
+                      </tr>
+                      <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
+                        <td style={{ padding: '12px', fontWeight: 'bold', color: '#0f172a' }}>Azithromycin 250mg</td>
+                        <td style={{ padding: '12px', color: '#2563eb', fontWeight: 'bold' }}>150 Qty</td>
+                        <td style={{ padding: '12px', fontWeight: 'bold' }}>₹ 14,700.00</td>
+                        <td style={{ padding: '12px', color: '#16a34a', fontWeight: 'bold' }}>200 Qty</td>
+                        <td style={{ padding: '12px', fontWeight: 'bold', color: '#0f172a' }}>₹ 15,600.00</td>
+                      </tr>
+                      <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
+                        <td style={{ padding: '12px', fontWeight: 'bold', color: '#0f172a' }}>Cetirizine 10mg</td>
+                        <td style={{ padding: '12px', color: '#2563eb', fontWeight: 'bold' }}>245 Qty</td>
+                        <td style={{ padding: '12px', fontWeight: 'bold' }}>₹ 2,940.00</td>
+                        <td style={{ padding: '12px', color: '#16a34a', fontWeight: 'bold' }}>80 Qty</td>
+                        <td style={{ padding: '12px', fontWeight: 'bold', color: '#0f172a' }}>₹ 960.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {activeTab !== 'product' && (
+              <div>
+                <h2 style={{ fontSize: '20px', fontWeight: 'bold', textTransform: 'capitalize' }}>{activeTab} Section</h2>
+                <p style={{ color: '#64748b', marginTop: '8px' }}>Select 'Product & Stock Report' from the left sidebar to view the Date Filtered stock summary.</p>
+              </div>
+            )}
+
           </div>
+        </main>
 
-          <div className="overflow-x-auto rounded-lg border border-slate-200">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-slate-50 border-b text-slate-600 text-xs uppercase font-semibold">
-                  <th className="p-3">Medicine Name</th>
-                  <th className="p-3">Batch No</th>
-                  <th className="p-3">Remaining Stock</th>
-                  <th className="p-3">Expiry Date</th>
-                  <th className="p-3">Status</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100 text-sm">
-                {expiryData.map((item, index) => (
-                  <tr key={index} className="hover:bg-slate-50 transition">
-                    <td className="p-3 font-semibold text-slate-800">{item.name}</td>
-                    <td className="p-3 font-mono text-slate-600">{item.batch}</td>
-                    <td className="p-3 text-slate-700">{item.stock}</td>
-                    <td className="p-3 text-slate-600">{item.date}</td>
-                    <td className="p-3">
-                      <span className={px-2.5 py-1 text-xs font-semibold rounded-full border ${item.color}}>
-                        {item.status}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </main>
+      </div>
     </div>
   );
 }
+
+const btnStyle = (active) => ({
+  border: 'none',
+  backgroundColor: active ? '#059669' : 'transparent',
+  color: active ? 'white' : '#475569',
+  padding: '12px 16px',
+  borderRadius: '8px',
+  fontSize: '14px',
+  fontWeight: active ? 'bold' : '500',
+  textAlign: 'left',
+  width: '100%',
+  cursor: 'pointer'
+});
+
+const inputStyle = {
+  width: '100%',
+  padding: '8px 12px',
+  borderRadius: '6px',
+  border: '1px solid #cbd5e1',
+  fontSize: '14px',
+  outline: 'none'
+};
+
+const thStyle = {
+  padding: '12px',
+  fontSize: '12px',
+  color: '#475569',
+  textTransform: 'uppercase'
+};
+
+const cardBox = (bg, border) => ({
+  backgroundColor: bg,
+  borderColor: border,
+  borderWidth: '1px',
+  borderStyle: 'solid',
+  padding: '18px',
+  borderRadius: '10px'
+});
