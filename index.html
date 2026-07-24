@@ -8,23 +8,19 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body { background-color: #f1f5f9; color: #334155; display: flex; flex-direction: column; min-height: 100vh; }
     
-    /* Header */
     header { background-color: #047857; color: white; padding: 16px 24px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); width: 100%; }
     .header-container { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
     .header-title { font-size: 24px; font-weight: bold; }
     .header-sub { font-size: 12px; color: #a7f3d0; margin-top: 2px; }
     .badge { background-color: #065f46; border: 1px solid #059669; font-size: 12px; padding: 4px 12px; border-radius: 9999px; }
     
-    /* Layout Container */
     .layout-container { display: flex; max-width: 1280px; width: 100%; margin: 24px auto; padding: 0 16px; gap: 24px; flex: 1; }
     
-    /* Sidebar Navigation */
     sidebar { width: 260px; background-color: white; border-radius: 12px; border: 1px solid #e2e8f0; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); height: fit-content; display: flex; flex-direction: column; gap: 8px; }
     .nav-btn { border: none; background: transparent; padding: 12px 16px; border-radius: 8px; color: #475569; font-size: 14px; font-weight: 500; cursor: pointer; text-align: left; width: 100%; display: block; transition: all 0.2s; }
     .nav-btn:hover { background-color: #f1f5f9; color: #047857; }
     .nav-btn.active { background-color: #059669; color: white; font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
 
-    /* Main Content Pages */
     main { flex: 1; }
     .page-section { display: none; }
     .page-section.active { display: block; }
@@ -33,7 +29,6 @@
     .card-title { font-size: 20px; font-weight: bold; color: #1e293b; margin-bottom: 4px; }
     .card-desc { color: #64748b; font-size: 14px; margin-bottom: 24px; }
 
-    /* Grid & Cards */
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
     .stat-box { padding: 18px; border-radius: 10px; border: 1px solid; }
     .stat-blue { background-color: #eff6ff; border-color: #bfdbfe; } .stat-blue .label { color: #2563eb; } .stat-blue .value { color: #1d4ed8; }
@@ -44,7 +39,6 @@
     .stat-box .label { font-size: 11px; font-weight: bold; text-transform: uppercase; }
     .stat-box .value { font-size: 24px; font-weight: bold; margin-top: 4px; }
 
-    /* Form & Filter Controls */
     .filter-box { background-color: #f0fdf4; border: 2px solid #059669; padding: 16px; border-radius: 10px; display: flex; gap: 16px; align-items: flex-end; margin-bottom: 24px; flex-wrap: wrap; }
     .filter-group { flex: 1; min-width: 180px; }
     .filter-group label { display: block; font-size: 13px; font-weight: bold; color: #047857; margin-bottom: 6px; }
@@ -53,7 +47,6 @@
     .btn-filter { background-color: #059669; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px; }
     .btn-filter:hover { background-color: #047857; }
 
-    /* Tables */
     .table-container { overflow-x: auto; border-radius: 8px; border: 1px solid #e2e8f0; }
     table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
     th { background-color: #f8fafc; border-bottom: 1px solid #e2e8f0; color: #475569; font-size: 12px; text-transform: uppercase; padding: 12px; font-weight: 600; }
@@ -79,10 +72,10 @@
     </div>
   </header>
 
-  <!-- Layout Container: Sidebar + Main Content -->
+  <!-- Layout Container -->
   <div class="layout-container">
     
-    <!-- Vertical Sidebar Navigation -->
+    <!-- Sidebar Navigation -->
     <sidebar>
       <button class="nav-btn active" onclick="showPage('dashboard', this)">📊 Dashboard</button>
       <button class="nav-btn" onclick="showPage('billing', this)">🧾 GST Billing</button>
@@ -94,7 +87,7 @@
       <button class="nav-btn" onclick="showPage('expiry', this)">⚠️ Expiry Alert & Report</button>
     </sidebar>
 
-    <!-- Main Content Sections -->
+    <!-- Main Content -->
     <main>
       
       <!-- PAGE 1: Dashboard -->
@@ -122,18 +115,78 @@
         </div>
       </section>
 
-      <!-- PAGE 2: GST Billing -->
+      <!-- PAGE 2: GST BILLING FOR RETAILERS -->
       <section id="billing" class="page-section">
         <div class="card">
-          <div class="card-title">🧾 GST Billing & Invoice Generation</div>
-          <div class="card-desc">Create GST compliant invoices for your pharmacy customers.</div>
-          <form style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
-            <div class="filter-group"><label>Customer Name</label><input type="text" class="form-control" placeholder="Select or enter customer name"></div>
-            <div class="filter-group"><label>Invoice Date</label><input type="date" class="form-control" value="2026-07-24"></div>
-            <div class="filter-group"><label>Select Medicine</label><select class="form-control"><option>Paracetamol 650mg</option><option>Amoxicillin 500mg</option><option>Azithromycin 250mg</option></select></div>
-            <div class="filter-group"><label>Quantity</label><input type="number" class="form-control" value="10"></div>
-          </form>
-          <button class="btn-filter">➕ Generate Invoice</button>
+          <div class="card-title">🧾 Retailer GST Tax Invoice Billing</div>
+          <div class="card-desc">Create professional Tax Invoices for Chemists & Retailers with Batch, Expiry & GST calculations.</div>
+          
+          <!-- Retailer / Customer Details -->
+          <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 20px;">
+            <h3 style="font-size: 14px; font-weight: bold; color: #047857; margin-bottom: 12px;">👤 Customer / Retailer Information</h3>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
+              <div class="filter-group"><label>Retailer / Pharmacy Name</label><input type="text" class="form-control" placeholder="e.g. Shree Medicals, Narayangaon"></div>
+              <div class="filter-group"><label>Retailer GSTIN</label><input type="text" class="form-control" placeholder="27AAACS1029F1Z2"></div>
+              <div class="filter-group"><label>Drug License (DL) No</label><input type="text" class="form-control" placeholder="MH-PUN-102938"></div>
+              <div class="filter-group"><label>Invoice No</label><input type="text" class="form-control" value="INV-2026-090" readonly style="background: #f1f5f9;"></div>
+              <div class="filter-group"><label>Invoice Date</label><input type="date" class="form-control" value="2026-07-24"></div>
+              <div class="filter-group"><label>Payment Mode</label><select class="form-control"><option>Credit (उधारी)</option><option>UPI / PhonePe</option><option>Bank Transfer</option><option>Cash</option></select></div>
+            </div>
+          </div>
+
+          <!-- Product Add Table -->
+          <h3 style="font-size: 14px; font-weight: bold; color: #334155; margin-bottom: 10px;">📦 Items / Medicines List</h3>
+          <div class="table-container" style="margin-bottom: 16px;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Medicine Name</th>
+                  <th>Batch No</th>
+                  <th>Expiry</th>
+                  <th>Qty</th>
+                  <th>PTR / Rate (₹)</th>
+                  <th>GST %</th>
+                  <th>Total (₹)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="text" class="form-control" value="Paracetamol 650mg"></td>
+                  <td><input type="text" class="form-control" value="B204" style="width: 90px;"></td>
+                  <td><input type="text" class="form-control" value="08/27" style="width: 80px;"></td>
+                  <td><input type="number" class="form-control" value="50" style="width: 80px;"></td>
+                  <td><input type="number" class="form-control" value="22.50" style="width: 90px;"></td>
+                  <td><select class="form-control" style="width: 80px;"><option>12%</option><option>18%</option><option>5%</option></select></td>
+                  <td style="font-weight: bold;">₹ 1,260.00</td>
+                </tr>
+                <tr>
+                  <td><input type="text" class="form-control" value="Azithromycin 250mg"></td>
+                  <td><input type="text" class="form-control" value="AZ12" style="width: 90px;"></td>
+                  <td><input type="text" class="form-control" value="01/27" style="width: 80px;"></td>
+                  <td><input type="number" class="form-control" value="20" style="width: 80px;"></td>
+                  <td><input type="number" class="form-control" value="78.00" style="width: 90px;"></td>
+                  <td><select class="form-control" style="width: 80px;"><option>12%</option><option>18%</option><option>5%</option></select></td>
+                  <td style="font-weight: bold;">₹ 1,747.20</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Total Calculation Footer -->
+          <div style="display: flex; justify-content: space-between; align-items: center; background: #eff6ff; padding: 16px; border-radius: 8px; border: 1px solid #bfdbfe;">
+            <div>
+              <span style="font-size: 13px; color: #1e3a8a; font-weight: 600;">Subtotal: ₹ 2,685.00 | CGST (6%): ₹ 161.10 | SGST (6%): ₹ 161.10</span>
+            </div>
+            <div style="text-align: right;">
+              <span style="font-size: 14px; color: #1e293b; font-weight: bold;">Grand Total: </span>
+              <span style="font-size: 22px; color: #059669; font-weight: bold;">₹ 3,007.20</span>
+            </div>
+          </div>
+
+          <div style="margin-top: 16px; display: flex; gap: 12px;">
+            <button class="btn-filter" style="background-color: #059669;">💾 Save Invoice</button>
+            <button class="btn-filter" style="background-color: #2563eb;" onclick="window.print()">🖨️ Print / Download PDF Invoice</button>
+          </div>
         </div>
       </section>
 
@@ -271,18 +324,6 @@
                   <td>₹ 78.00</td>
                   <td style="font-weight: bold; color: #0f172a;">₹ 27,300.00</td>
                 </tr>
-                <tr>
-                  <td style="font-weight: 600;">Sun Pharma Agency</td>
-                  <td style="font-size: 12px; color: #475569;">27AABCS9821K1Z3</td>
-                  <td style="font-weight: 600;">PUR-2026-035</td>
-                  <td>Amoxicillin 500mg</td>
-                  <td><span class="status-badge status-warning">AM99</span></td>
-                  <td>2024-12-01</td>
-                  <td>2026-11-30</td>
-                  <td>150 Qty</td>
-                  <td>₹ 58.00</td>
-                  <td style="font-weight: bold; color: #0f172a;">₹ 8,700.00</td>
-                </tr>
               </tbody>
             </table>
           </div>
@@ -315,7 +356,6 @@
               <tbody>
                 <tr><td style="font-weight: 600;">Mahesh Medical & Healthcare</td><td>₹ 35,000</td><td>₹ 13,500</td><td style="font-weight: 600; color: #dc2626;">₹ 21,500</td><td><span class="status-badge status-danger">Overdue</span></td></tr>
                 <tr><td style="font-weight: 600;">Seema Pharma Distributors</td><td>₹ 18,200</td><td>₹ 10,000</td><td style="font-weight: 600; color: #d97706;">₹ 8,200</td><td><span class="status-badge status-warning">Pending</span></td></tr>
-                <tr><td style="font-weight: 600;">Shree Medicals, Narayangaon</td><td>₹ 45,000</td><td>₹ 28,500</td><td style="font-weight: 600; color: #d97706;">₹ 16,500</td><td><span class="status-badge status-warning">Pending</span></td></tr>
               </tbody>
             </table>
           </div>
@@ -338,8 +378,6 @@
               <tbody>
                 <tr><td style="font-weight: 600;">Paracetamol 650mg</td><td>B204</td><td>120 Qty</td><td>2026-08-15</td><td><span class="status-badge status-warning">⚠️ Expiring Soon</span></td></tr>
                 <tr><td style="font-weight: 600;">Amoxicillin 500mg</td><td>AM99</td><td>45 Qty</td><td>2026-06-30</td><td><span class="status-badge status-danger">❌ Expired</span></td></tr>
-                <tr><td style="font-weight: 600;">Azithromycin 250mg</td><td>AZ12</td><td>200 Qty</td><td>2027-01-10</td><td><span class="status-badge status-success">✅ Safe</span></td></tr>
-                <tr><td style="font-weight: 600;">Cetirizine 10mg</td><td>CT88</td><td>80 Qty</td><td>2026-08-01</td><td><span class="status-badge status-warning">⚠️ Expiring Soon</span></td></tr>
               </tbody>
             </table>
           </div>
@@ -350,7 +388,6 @@
 
   </div>
 
-  <!-- JavaScript for Tab Switching -->
   <script>
     function showPage(pageId, element) {
       document.querySelectorAll('.page-section').forEach(page => page.classList.remove('active'));
