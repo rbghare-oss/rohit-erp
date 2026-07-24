@@ -1,13 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rootwell Pharma - Rohit ERP</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rootwell Pharma - Rohit ERP</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 font-sans min-h-screen">
+
+  <!-- Top Header -->
+  <header class="bg-emerald-700 text-white shadow-md p-4">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <div>
+        <h1 className="text-2xl font-bold text-white text-xl md:text-2xl">Rootwell Pharma</h1>
+        <p class="text-xs text-emerald-100">Rohit ERP - Management System</p>
+      </div>
+      <span class="bg-emerald-800 text-xs px-3 py-1 rounded-full border border-emerald-600">v1.0 Active</span>
+    </div>
+  </header>
+
+  <!-- Navigation Bar -->
+  <nav class="bg-white shadow-sm border-b">
+    <div class="max-w-6xl mx-auto flex space-x-2 p-2 overflow-x-auto text-sm font-medium">
+      <button class="px-4 py-2 rounded-lg text-slate-600 hover:bg-slate-100">🧾 GST Billing</button>
+      <button class="px-4 py-2 rounded-lg text-slate-600 hover:bg-slate-100">📦 Product Master</button>
+      <button class="px-4 py-2 rounded-lg text-slate-600 hover:bg-slate-100">👤 Customer Master</button>
+      <button class="px-4 py-2 rounded-lg text-slate-600 hover:bg-slate-100">🚛 Supplier Master</button>
+      <button class="px-4 py-2 rounded-lg text-slate-600 hover:bg-slate-100">🛒 Purchase Management</button>
+      <button class="px-4 py-2 rounded-lg bg-emerald-600 text-white font-semibold shadow-sm">⚠️ Expiry Alert & Report</button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-6xl mx-auto p-6 space-y-6">
+    <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+      <h2 class="text-xl font-bold text-slate-800 mb-1">⚠️ Expiry Alert & Report</h2>
+      <p class="text-slate-500 text-sm mb-6">Monitor expired and near-expiry medicine inventory in real-time.</p>
+
+      <!-- Stat Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="p-4 rounded-lg bg-red-50 border border-red-200">
+          <span class="text-xs text-red-600 font-bold uppercase">Expired Stock</span>
+          <p class="text-2xl font-bold text-red-700 mt-1">1 Items</p>
+        </div>
+        <div class="p-4 rounded-lg bg-amber-50 border border-amber-200">
+          <span class="text-xs text-amber-600 font-bold uppercase">Near Expiry</span>
+          <p class="text-2xl font-bold text-amber-700 mt-1">2 Items</p>
+        </div>
+        <div class="p-4 rounded-lg bg-slate-50 border border-slate-200">
+          <span class="text-xs text-slate-500 font-bold uppercase">Total Tracked Stock</span>
+          <p class="text-2xl font-bold text-slate-700 mt-1">4 Items</p>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="overflow-x-auto rounded-lg border border-slate-200">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-slate-50 border-b text-slate-600 text-xs uppercase font-semibold">
+              <th class="p-3">Medicine Name</th>
+              <th class="p-3">Batch No</th>
+              <th class="p-3">Remaining Stock</th>
+              <th class="p-3">Expiry Date</th>
+              <th class="p-3">Status</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-sm">
+            <tr class="hover:bg-slate-50">
+              <td class="p-3 font-semibold text-slate-800">Paracetamol 650mg</td>
+              <td class="p-3 font-mono text-slate-600">B204</td>
+              <td class="p-3 text-slate-700">120 Qty</td>
+              <td class="p-3 text-slate-600">2026-08-15</td>
+              <td class="p-3"><span class="px-2.5 py-1 text-xs font-semibold rounded-full border bg-amber-100 text-amber-800 border-amber-300">⚠️ Expiring Soon</span></td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-3 font-semibold text-slate-800">Amoxicillin 500mg</td>
+              <td class="p-3 font-mono text-slate-600">AM99</td>
+              <td class="p-3 text-slate-700">45 Qty</td>
+              <td class="p-3 text-slate-600">2026-06-30</td>
+              <td class="p-3"><span class="px-2.5 py-1 text-xs font-semibold rounded-full border bg-red-100 text-red-800 border-red-300">❌ Expired</span></td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-3 font-semibold text-slate-800">Azithromycin 250mg</td>
+              <td class="p-3 font-mono text-slate-600">AZ12</td>
+              <td class="p-3 text-slate-700">200 Qty</td>
+              <td class="p-3 text-slate-600">2027-01-10</td>
+              <td class="p-3"><span class="px-2.5 py-1 text-xs font-semibold rounded-full border bg-emerald-100 text-emerald-800 border-emerald-300">✅ Safe</span></td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-3 font-semibold text-slate-800">Cetirizine 10mg</td>
+              <td class="p-3 font-mono text-slate-600">CT88</td>
+              <td class="p-3 text-slate-700">80 Qty</td>
+              <td class="p-3 text-slate-600">2026-08-01</td>
+              <td class="p-3"><span class="px-2.5 py-1 text-xs font-semibold rounded-full border bg-amber-100 text-amber-800 border-amber-300">⚠️ Expiring Soon</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+</body>
 </html>
