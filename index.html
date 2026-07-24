@@ -84,7 +84,7 @@
     <sidebar>
       <button class="nav-btn active" onclick="showPage('dashboard', this)">📊 Dashboard</button>
       <button class="nav-btn" onclick="showPage('billing', this)">🧾 GST Billing</button>
-      <button class="nav-btn" onclick="showPage('product', this)">📦 Product & Closing Stock</button>
+      <button class="nav-btn" onclick="showPage('product', this)">📦 Product & Stock Report</button>
       <button class="nav-btn" onclick="showPage('customer', this)">👤 Customer Master</button>
       <button class="nav-btn" onclick="showPage('supplier', this)">🚛 Supplier Master</button>
       <button class="nav-btn" onclick="showPage('purchase', this)">🛒 Purchase Management</button>
@@ -135,18 +135,18 @@
         </div>
       </section>
 
-      <!-- PAGE 3: Product & Closing Stock Master -->
+      <!-- PAGE 3: Product Sale & Closing Stock Report -->
       <section id="product" class="page-section">
         <div class="card">
-          <div class="card-title">📦 Product Sale & Closing Stock Master</div>
-          <div class="card-desc">Real-time inventory tracking showing sales vs current closing stock availability.</div>
+          <div class="card-title">📦 Product Sale & Closing Stock Summary</div>
+          <div class="card-desc">Clear report showing Sale Quantity, Sale Value, Closing Quantity and Closing Value (at PTR).</div>
           
           <!-- Summary Header Cards -->
           <div class="grid">
-            <div class="stat-box stat-blue"><div class="label">Total Products</div><div class="value">148 Items</div></div>
-            <div class="stat-box stat-purple"><div class="label">Total Units Sold</div><div class="value">580 Qty</div></div>
-            <div class="stat-box stat-green"><div class="label">Total Closing Stock</div><div class="value">445 Qty</div></div>
-            <div class="stat-box stat-amber"><div class="label">Stock Valuation</div><div class="value">₹ 2,14,800</div></div>
+            <div class="stat-box stat-blue"><div class="label">Total Sale Quantity</div><div class="value">580 Qty</div></div>
+            <div class="stat-box stat-purple"><div class="label">Total Sale Value</div><div class="value">₹ 22,540</div></div>
+            <div class="stat-box stat-green"><div class="label">Total Closing Quantity</div><div class="value">445 Qty</div></div>
+            <div class="stat-box stat-amber"><div class="label">Total Closing Value</div><div class="value">₹ 21,870</div></div>
           </div>
 
           <div class="table-container">
@@ -154,50 +154,40 @@
               <thead>
                 <tr>
                   <th>Medicine Name</th>
-                  <th>Pack Size</th>
-                  <th>MRP</th>
-                  <th>Opening Stock</th>
-                  <th>Total Sold (Qty)</th>
-                  <th>Closing Stock (Qty)</th>
-                  <th>Closing Valuation (₹)</th>
+                  <th>Sale Quantity</th>
+                  <th>Sale Value (₹)</th>
+                  <th>Closing Quantity</th>
+                  <th>Closing Value (₹)</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td style="font-weight: 600;">Paracetamol 650mg</td>
-                  <td>10x10 Strip</td>
-                  <td>₹ 32.00</td>
-                  <td>200 Qty</td>
+                  <td style="font-weight: 600; color: #0f172a;">Paracetamol 650mg</td>
                   <td style="color: #2563eb; font-weight: 600;">80 Qty</td>
+                  <td style="font-weight: 600;">₹ 2,280.00</td>
                   <td style="color: #16a34a; font-weight: bold;">120 Qty</td>
-                  <td style="font-weight: 600;">₹ 3,420.00</td>
+                  <td style="font-weight: bold; color: #0f172a;">₹ 2,700.00</td>
                 </tr>
                 <tr>
-                  <td style="font-weight: 600;">Amoxicillin 500mg</td>
-                  <td>1x10 Cap</td>
-                  <td>₹ 85.00</td>
-                  <td>150 Qty</td>
+                  <td style="font-weight: 600; color: #0f172a;">Amoxicillin 500mg</td>
                   <td style="color: #2563eb; font-weight: 600;">105 Qty</td>
+                  <td style="font-weight: 600;">₹ 7,560.00</td>
                   <td style="color: #dc2626; font-weight: bold;">45 Qty</td>
-                  <td style="font-weight: 600;">₹ 3,240.00</td>
+                  <td style="font-weight: bold; color: #0f172a;">₹ 2,610.00</td>
                 </tr>
                 <tr>
-                  <td style="font-weight: 600;">Azithromycin 250mg</td>
-                  <td>1x6 Tab</td>
-                  <td>₹ 112.00</td>
-                  <td>350 Qty</td>
+                  <td style="font-weight: 600; color: #0f172a;">Azithromycin 250mg</td>
                   <td style="color: #2563eb; font-weight: 600;">150 Qty</td>
+                  <td style="font-weight: 600;">₹ 14,700.00</td>
                   <td style="color: #16a34a; font-weight: bold;">200 Qty</td>
-                  <td style="font-weight: 600;">₹ 19,600.00</td>
+                  <td style="font-weight: bold; color: #0f172a;">₹ 15,600.00</td>
                 </tr>
                 <tr>
-                  <td style="font-weight: 600;">Cetirizine 10mg</td>
-                  <td>10x10 Strip</td>
-                  <td>₹ 18.00</td>
-                  <td>325 Qty</td>
+                  <td style="font-weight: 600; color: #0f172a;">Cetirizine 10mg</td>
                   <td style="color: #2563eb; font-weight: 600;">245 Qty</td>
+                  <td style="font-weight: 600;">₹ 2,940.00</td>
                   <td style="color: #16a34a; font-weight: bold;">80 Qty</td>
-                  <td style="font-weight: 600;">₹ 1,200.00</td>
+                  <td style="font-weight: bold; color: #0f172a;">₹ 960.00</td>
                 </tr>
               </tbody>
             </table>
