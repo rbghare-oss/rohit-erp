@@ -6,16 +6,25 @@
   <title>Rootwell Pharma - Rohit ERP</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: #f1f5f9; color: #334155; display: flex; flex-direction: column; min-height: 100vh; }
+    body { background-color: #f1f5f9; color: #334155; min-height: 100vh; display: flex; flex-direction: column; }
     
+    #login-page { display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #047857; padding: 20px; }
+    .login-card { background-color: white; padding: 32px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); width: 100%; max-width: 400px; text-align: center; }
+    .login-title { font-size: 24px; font-weight: bold; color: #047857; margin-bottom: 4px; }
+    .login-sub { font-size: 13px; color: #64748b; margin-bottom: 24px; }
+    .login-form { display: flex; flex-direction: column; gap: 16px; text-align: left; }
+    .login-form label { font-size: 13px; font-weight: 600; color: #334155; }
+    .error-msg { color: #dc2626; font-size: 13px; font-weight: 600; display: none; margin-top: 8px; text-align: center; }
+
+    #app-page { display: none; flex-direction: column; min-height: 100vh; }
     header { background-color: #047857; color: white; padding: 16px 24px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); width: 100%; }
     .header-container { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
     .header-title { font-size: 24px; font-weight: bold; }
     .header-sub { font-size: 12px; color: #a7f3d0; margin-top: 2px; }
     .badge { background-color: #065f46; border: 1px solid #059669; font-size: 12px; padding: 4px 12px; border-radius: 9999px; }
+    .btn-logout { background-color: #dc2626; color: white; border: none; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; margin-left: 12px; }
     
     .layout-container { display: flex; max-width: 1280px; width: 100%; margin: 24px auto; padding: 0 16px; gap: 24px; flex: 1; }
-    
     sidebar { width: 260px; background-color: white; border-radius: 12px; border: 1px solid #e2e8f0; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); height: fit-content; display: flex; flex-direction: column; gap: 8px; }
     .nav-btn { border: none; background: transparent; padding: 12px 16px; border-radius: 8px; color: #475569; font-size: 14px; font-weight: 500; cursor: pointer; text-align: left; width: 100%; display: block; transition: all 0.2s; }
     .nav-btn:hover { background-color: #f1f5f9; color: #047857; }
@@ -24,7 +33,6 @@
     main { flex: 1; }
     .page-section { display: none; }
     .page-section.active { display: block; }
-    
     .card { background-color: white; border-radius: 12px; border: 1px solid #e2e8f0; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 24px; }
     .card-title { font-size: 20px; font-weight: bold; color: #1e293b; margin-bottom: 4px; }
     .card-desc { color: #64748b; font-size: 14px; margin-bottom: 24px; }
@@ -61,334 +69,172 @@
 </head>
 <body>
 
-  <!-- Top Header -->
-  <header>
-    <div class="header-container">
-      <div>
-        <div class="header-title">Rootwell Pharma</div>
-        <div class="header-sub">Rohit ERP - Management System</div>
-      </div>
-      <span class="badge">v1.0 Active</span>
+  <!-- LOGIN PAGE -->
+  <div id="login-page">
+    <div class="login-card">
+      <div class="login-title">Rootwell Pharma</div>
+      <div class="login-sub">Rohit ERP - Secure Login</div>
+      <form class="login-form" onsubmit="handleLogin(event)">
+        <div>
+          <label>Username / User ID</label>
+          <input type="text" id="username" class="form-control" placeholder="Enter username" required value="rohit">
+        </div>
+        <div>
+          <label>Password</label>
+          <input type="password" id="password" class="form-control" placeholder="Enter password" required value="1234">
+        </div>
+        <button type="submit" class="btn-filter" style="width: 100%; margin-top: 8px;">🔓 Login to ERP</button>
+      </form>
+      <div id="error-msg" class="error-msg">❌ Invalid Username or Password!</div>
+      <p style="font-size: 11px; color: #94a3b8; margin-top: 16px;">Demo Username: <b>rohit</b> | Password: <b>1234</b></p>
     </div>
-  </header>
+  </div>
 
-  <!-- Layout Container -->
-  <div class="layout-container">
-    
-    <!-- Sidebar Navigation -->
-    <sidebar>
-      <button class="nav-btn active" onclick="showPage('dashboard', this)">📊 Dashboard</button>
-      <button class="nav-btn" onclick="showPage('billing', this)">🧾 GST Billing</button>
-      <button class="nav-btn" onclick="showPage('product', this)">📦 Product & Stock Report</button>
-      <button class="nav-btn" onclick="showPage('customer', this)">👤 Customer Master</button>
-      <button class="nav-btn" onclick="showPage('supplier', this)">🚛 Supplier Master</button>
-      <button class="nav-btn" onclick="showPage('purchase', this)">🛒 Purchase Management</button>
-      <button class="nav-btn" onclick="showPage('accounts', this)">💳 Accounts & Payments</button>
-      <button class="nav-btn" onclick="showPage('expiry', this)">⚠️ Expiry Alert & Report</button>
-    </sidebar>
-
-    <!-- Main Content -->
-    <main>
-      
-      <!-- PAGE 1: Dashboard -->
-      <section id="dashboard" class="page-section active">
-        <div class="card">
-          <div class="card-title">📊 Business Overview & Dashboard</div>
-          <div class="card-desc">Welcome to Rootwell Pharma ERP. Here is your daily business summary.</div>
-          <div class="grid">
-            <div class="stat-box stat-blue"><div class="label">Today's Sales</div><div class="value">₹ 42,850</div></div>
-            <div class="stat-box stat-green"><div class="label">Total Products</div><div class="value">148 Medicines</div></div>
-            <div class="stat-box stat-purple"><div class="label">Active Customers</div><div class="value">32 Chemists</div></div>
-            <div class="stat-box stat-amber"><div class="label">Pending Orders</div><div class="value">5 Orders</div></div>
-          </div>
-          <h3 style="font-size: 16px; font-weight: bold; margin-bottom: 12px; color: #334155;">🧾 Recent Billing Transactions</h3>
-          <div class="table-container">
-            <table>
-              <thead><tr><th>Invoice No</th><th>Customer / Pharmacy</th><th>Amount</th><th>Date</th><th>Status</th></tr></thead>
-              <tbody>
-                <tr><td style="font-weight: 600;">#INV-2026-089</td><td>Shree Medicals, Narayangaon</td><td>₹ 12,450</td><td>2026-07-24</td><td><span class="status-badge status-success">✅ Paid</span></td></tr>
-                <tr><td style="font-weight: 600;">#INV-2026-088</td><td>Apex Pharma Distributor</td><td>₹ 8,900</td><td>2026-07-24</td><td><span class="status-badge status-success">✅ Paid</span></td></tr>
-                <tr><td style="font-weight: 600;">#INV-2026-087</td><td>Mahesh Medical & Healthcare</td><td>₹ 21,500</td><td>2026-07-23</td><td><span class="status-badge status-warning">⏳ Pending</span></td></tr>
-              </tbody>
-            </table>
-          </div>
+  <!-- MAIN APP PAGE -->
+  <div id="app-page">
+    <header>
+      <div class="header-container">
+        <div>
+          <div class="header-title">Rootwell Pharma</div>
+          <div class="header-sub">Rohit ERP - Management System</div>
         </div>
-      </section>
+        <div>
+          <span class="badge">v1.0 Active</span>
+          <button class="btn-logout" onclick="handleLogout()">🚪 Logout</button>
+        </div>
+      </div>
+    </header>
 
-      <!-- PAGE 2: GST BILLING FOR RETAILERS -->
-      <section id="billing" class="page-section">
-        <div class="card">
-          <div class="card-title">🧾 Retailer GST Tax Invoice Billing</div>
-          <div class="card-desc">Create professional Tax Invoices for Chemists & Retailers with Batch, Expiry & GST calculations.</div>
-          
-          <!-- Retailer / Customer Details -->
-          <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 20px;">
-            <h3 style="font-size: 14px; font-weight: bold; color: #047857; margin-bottom: 12px;">👤 Customer / Retailer Information</h3>
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
-              <div class="filter-group"><label>Retailer / Pharmacy Name</label><input type="text" class="form-control" placeholder="e.g. Shree Medicals, Narayangaon"></div>
-              <div class="filter-group"><label>Retailer GSTIN</label><input type="text" class="form-control" placeholder="27AAACS1029F1Z2"></div>
-              <div class="filter-group"><label>Drug License (DL) No</label><input type="text" class="form-control" placeholder="MH-PUN-102938"></div>
-              <div class="filter-group"><label>Invoice No</label><input type="text" class="form-control" value="INV-2026-090" readonly style="background: #f1f5f9;"></div>
-              <div class="filter-group"><label>Invoice Date</label><input type="date" class="form-control" value="2026-07-24"></div>
-              <div class="filter-group"><label>Payment Mode</label><select class="form-control"><option>Credit (उधारी)</option><option>UPI / PhonePe</option><option>Bank Transfer</option><option>Cash</option></select></div>
+    <div class="layout-container">
+      <sidebar>
+        <button class="nav-btn active" onclick="showPage('dashboard', this)">📊 Dashboard</button>
+        <button class="nav-btn" onclick="showPage('billing', this)">🧾 GST Billing</button>
+        <button class="nav-btn" onclick="showPage('product', this)">📦 Product & Stock Report</button>
+        <button class="nav-btn" onclick="showPage('customer', this)">👤 Customer Master</button>
+        <button class="nav-btn" onclick="showPage('supplier', this)">🚛 Supplier Master</button>
+        <button class="nav-btn" onclick="showPage('purchase', this)">🛒 Purchase Management</button>
+        <button class="nav-btn" onclick="showPage('accounts', this)">💳 Accounts & Payments</button>
+        <button class="nav-btn" onclick="showPage('expiry', this)">⚠️ Expiry Alert & Report</button>
+      </sidebar>
+
+      <main>
+        <section id="dashboard" class="page-section active">
+          <div class="card">
+            <div class="card-title">📊 Business Overview & Dashboard</div>
+            <div class="card-desc">Welcome back! Here is your daily business summary.</div>
+            <div class="grid">
+              <div class="stat-box stat-blue"><div class="label">Today's Sales</div><div class="value">₹ 42,850</div></div>
+              <div class="stat-box stat-green"><div class="label">Total Products</div><div class="value">148 Medicines</div></div>
+              <div class="stat-box stat-purple"><div class="label">Active Customers</div><div class="value">32 Chemists</div></div>
+              <div class="stat-box stat-amber"><div class="label">Pending Orders</div><div class="value">5 Orders</div></div>
             </div>
           </div>
+        </section>
 
-          <!-- Product Add Table -->
-          <h3 style="font-size: 14px; font-weight: bold; color: #334155; margin-bottom: 10px;">📦 Items / Medicines List</h3>
-          <div class="table-container" style="margin-bottom: 16px;">
-            <table>
-              <thead>
-                <tr>
-                  <th>Medicine Name</th>
-                  <th>Batch No</th>
-                  <th>Expiry</th>
-                  <th>Qty</th>
-                  <th>PTR / Rate (₹)</th>
-                  <th>GST %</th>
-                  <th>Total (₹)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><input type="text" class="form-control" value="Paracetamol 650mg"></td>
-                  <td><input type="text" class="form-control" value="B204" style="width: 90px;"></td>
-                  <td><input type="text" class="form-control" value="08/27" style="width: 80px;"></td>
-                  <td><input type="number" class="form-control" value="50" style="width: 80px;"></td>
-                  <td><input type="number" class="form-control" value="22.50" style="width: 90px;"></td>
-                  <td><select class="form-control" style="width: 80px;"><option>12%</option><option>18%</option><option>5%</option></select></td>
-                  <td style="font-weight: bold;">₹ 1,260.00</td>
-                </tr>
-                <tr>
-                  <td><input type="text" class="form-control" value="Azithromycin 250mg"></td>
-                  <td><input type="text" class="form-control" value="AZ12" style="width: 90px;"></td>
-                  <td><input type="text" class="form-control" value="01/27" style="width: 80px;"></td>
-                  <td><input type="number" class="form-control" value="20" style="width: 80px;"></td>
-                  <td><input type="number" class="form-control" value="78.00" style="width: 90px;"></td>
-                  <td><select class="form-control" style="width: 80px;"><option>12%</option><option>18%</option><option>5%</option></select></td>
-                  <td style="font-weight: bold;">₹ 1,747.20</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Total Calculation Footer -->
-          <div style="display: flex; justify-content: space-between; align-items: center; background: #eff6ff; padding: 16px; border-radius: 8px; border: 1px solid #bfdbfe;">
-            <div>
-              <span style="font-size: 13px; color: #1e3a8a; font-weight: 600;">Subtotal: ₹ 2,685.00 | CGST (6%): ₹ 161.10 | SGST (6%): ₹ 161.10</span>
+        <section id="billing" class="page-section">
+          <div class="card">
+            <div class="card-title">🧾 Retailer GST Tax Invoice Billing</div>
+            <div class="card-desc">Create professional Tax Invoices for Chemists & Retailers with Batch, Expiry & GST calculations.</div>
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 20px;">
+              <h3 style="font-size: 14px; font-weight: bold; color: #047857; margin-bottom: 12px;">👤 Customer / Retailer Information</h3>
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
+                <div class="filter-group"><label>Retailer / Pharmacy Name</label><input type="text" class="form-control" placeholder="e.g. Shree Medicals"></div>
+                <div class="filter-group"><label>Retailer GSTIN</label><input type="text" class="form-control" placeholder="27AAACS1029F1Z2"></div>
+                <div class="filter-group"><label>Drug License (DL) No</label><input type="text" class="form-control" placeholder="MH-PUN-102938"></div>
+                <div class="filter-group"><label>Invoice No</label><input type="text" class="form-control" value="INV-2026-090" readonly style="background: #f1f5f9;"></div>
+                <div class="filter-group"><label>Invoice Date</label><input type="date" class="form-control" value="2026-07-24"></div>
+                <div class="filter-group"><label>Payment Mode</label><select class="form-control"><option>Credit (उधारी)</option><option>UPI / PhonePe</option><option>Cash</option></select></div>
+              </div>
             </div>
-            <div style="text-align: right;">
-              <span style="font-size: 14px; color: #1e293b; font-weight: bold;">Grand Total: </span>
-              <span style="font-size: 22px; color: #059669; font-weight: bold;">₹ 3,007.20</span>
+
+            <h3 style="font-size: 14px; font-weight: bold; color: #334155; margin-bottom: 10px;">📦 Items / Medicines List</h3>
+            <div class="table-container" style="margin-bottom: 16px;">
+              <table>
+                <thead>
+                  <tr><th>Medicine Name</th><th>Batch No</th><th>Expiry</th><th>Qty</th><th>PTR / Rate (₹)</th><th>GST %</th><th>Total (₹)</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><input type="text" class="form-control" value="Paracetamol 650mg"></td>
+                    <td><input type="text" class="form-control" value="B204" style="width: 90px;"></td>
+                    <td><input type="text" class="form-control" value="08/27" style="width: 80px;"></td>
+                    <td><input type="number" class="form-control" value="50" style="width: 80px;"></td>
+                    <td><input type="number" class="form-control" value="22.50" style="width: 90px;"></td>
+                    <td><select class="form-control" style="width: 80px;"><option>12%</option><option>18%</option></select></td>
+                    <td style="font-weight: bold;">₹ 1,260.00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; background: #eff6ff; padding: 16px; border-radius: 8px; border: 1px solid #bfdbfe;">
+              <span style="font-size: 13px; color: #1e3a8a; font-weight: 600;">Subtotal: ₹ 1,125.00 | CGST: ₹ 67.50 | SGST: ₹ 67.50</span>
+              <div><span style="font-size: 14px; font-weight: bold;">Grand Total: </span><span style="font-size: 22px; color: #059669; font-weight: bold;">₹ 1,260.00</span></div>
+            </div>
+
+            <div style="margin-top: 16px; display: flex; gap: 12px;">
+              <button class="btn-filter">💾 Save Invoice</button>
+              <button class="btn-filter" style="background-color: #2563eb;" onclick="window.print()">🖨️ Print / Download PDF</button>
             </div>
           </div>
+        </section>
 
-          <div style="margin-top: 16px; display: flex; gap: 12px;">
-            <button class="btn-filter" style="background-color: #059669;">💾 Save Invoice</button>
-            <button class="btn-filter" style="background-color: #2563eb;" onclick="window.print()">🖨️ Print / Download PDF Invoice</button>
+        <section id="product" class="page-section">
+          <div class="card">
+            <div class="card-title">📦 Product Sale & Closing Stock Summary</div>
+            <div class="filter-box">
+              <div class="filter-group"><label>📅 From Date</label><input type="date" class="form-control" value="2026-07-01"></div>
+              <div class="filter-group"><label>📅 To Date</label><input type="date" class="form-control" value="2026-07-24"></div>
+              <div><button type="button" class="btn-filter">🔍 Filter</button></div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- PAGE 3: Product Sale & Closing Stock Report -->
-      <section id="product" class="page-section">
-        <div class="card">
-          <div class="card-title">📦 Product Sale & Closing Stock Summary</div>
-          <div class="card-desc">Select date range to filter sales and closing stock valuation.</div>
-          
-          <div class="filter-box">
-            <div class="filter-group"><label>📅 From Date (कुठून)</label><input type="date" class="form-control" value="2026-07-01"></div>
-            <div class="filter-group"><label>📅 To Date (कुठंपर्यंत)</label><input type="date" class="form-control" value="2026-07-24"></div>
-            <div><button type="button" class="btn-filter">🔍 Filter Report</button></div>
+        <section id="purchase" class="page-section">
+          <div class="card">
+            <div class="card-title">🛒 Purchase Order & Stock Inward Entry</div>
+            <form style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid #e2e8f0;">
+              <div class="filter-group"><label>Supplier Name</label><input type="text" class="form-control" placeholder="e.g. Cipla Healthcare"></div>
+              <div class="filter-group"><label>Supplier GSTIN</label><input type="text" class="form-control" placeholder="27AAACC1208H2Z5"></div>
+              <div class="filter-group"><label>Bill / Invoice No</label><input type="text" class="form-control" placeholder="PUR-2026-042"></div>
+              <div class="filter-group"><label>Medicine Name</label><input type="text" class="form-control" placeholder="e.g. Paracetamol 650mg"></div>
+              <div class="filter-group"><label>Batch Number</label><input type="text" class="form-control" placeholder="B204"></div>
+              <div class="filter-group"><label>Purchased Qty</label><input type="number" class="form-control" placeholder="100"></div>
+              <div class="filter-group"><label>📅 Mfg Date</label><input type="date" class="form-control" value="2025-08-01"></div>
+              <div class="filter-group"><label>📅 Expiry Date</label><input type="date" class="form-control" value="2027-08-15"></div>
+              <div class="filter-group"><label>PTR (₹)</label><input type="number" class="form-control" placeholder="22.50"></div>
+              <div style="grid-column: span 3;"><button type="button" class="btn-filter">📥 Save Purchase Entry</button></div>
+            </form>
           </div>
+        </section>
 
-          <div class="grid">
-            <div class="stat-box stat-blue"><div class="label">Total Sale Quantity</div><div class="value">580 Qty</div></div>
-            <div class="stat-box stat-purple"><div class="label">Total Sale Value</div><div class="value">₹ 22,540</div></div>
-            <div class="stat-box stat-green"><div class="label">Total Closing Quantity</div><div class="value">445 Qty</div></div>
-            <div class="stat-box stat-amber"><div class="label">Total Closing Value</div><div class="value">₹ 21,870</div></div>
-          </div>
-
-          <div class="table-container">
-            <table>
-              <thead>
-                <tr><th>Medicine Name</th><th>Sale Quantity</th><th>Sale Value (₹)</th><th>Closing Quantity</th><th>Closing Value (₹)</th></tr>
-              </thead>
-              <tbody>
-                <tr><td style="font-weight: 600;">Paracetamol 650mg</td><td style="color: #2563eb; font-weight: 600;">80 Qty</td><td>₹ 2,280.00</td><td style="color: #16a34a; font-weight: bold;">120 Qty</td><td style="font-weight: bold;">₹ 2,700.00</td></tr>
-                <tr><td style="font-weight: 600;">Amoxicillin 500mg</td><td style="color: #2563eb; font-weight: 600;">105 Qty</td><td>₹ 7,560.00</td><td style="color: #dc2626; font-weight: bold;">45 Qty</td><td style="font-weight: bold;">₹ 2,610.00</td></tr>
-                <tr><td style="font-weight: 600;">Azithromycin 250mg</td><td style="color: #2563eb; font-weight: 600;">150 Qty</td><td>₹ 14,700.00</td><td style="color: #16a34a; font-weight: bold;">200 Qty</td><td style="font-weight: bold;">₹ 15,600.00</td></tr>
-                <tr><td style="font-weight: 600;">Cetirizine 10mg</td><td style="color: #2563eb; font-weight: 600;">245 Qty</td><td>₹ 2,940.00</td><td style="color: #16a34a; font-weight: bold;">80 Qty</td><td style="font-weight: bold;">₹ 960.00</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- PAGE 4: Customer Master -->
-      <section id="customer" class="page-section">
-        <div class="card">
-          <div class="card-title">👤 Customer Master Directory</div>
-          <div class="card-desc">Registered medical stores and wholesale client records.</div>
-          <div class="table-container">
-            <table>
-              <thead><tr><th>Customer Name</th><th>City / Location</th><th>Drug License No</th><th>Contact No</th></tr></thead>
-              <tbody>
-                <tr><td style="font-weight: 600;">Shree Medicals</td><td>Narayangaon</td><td>20B/MH-10293</td><td>+91 98220XXXXX</td></tr>
-                <tr><td style="font-weight: 600;">Apex Pharma Distributor</td><td>Pune</td><td>21B/MH-88392</td><td>+91 94225XXXXX</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- PAGE 5: Supplier Master -->
-      <section id="supplier" class="page-section">
-        <div class="card">
-          <div class="card-title">🚛 Supplier Master Records</div>
-          <div class="card-desc">List of pharmaceutical companies and primary distributors with GSTIN.</div>
-          <div class="table-container">
-            <table>
-              <thead><tr><th>Supplier Name</th><th>GSTIN Number</th><th>City</th><th>Status</th></tr></thead>
-              <tbody>
-                <tr><td style="font-weight: 600;">Rootwell Pharma HQ</td><td>27AABCR1234F1Z1</td><td>Mumbai</td><td><span class="status-badge status-success">Active</span></td></tr>
-                <tr><td style="font-weight: 600;">Cipla Healthcare Dist.</td><td>27AAACC1208H2Z5</td><td>Pune</td><td><span class="status-badge status-success">Active</span></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- PAGE 6: Purchase Management -->
-      <section id="purchase" class="page-section">
-        <div class="card">
-          <div class="card-title">🛒 Purchase Order & Stock Inward Entry</div>
-          <div class="card-desc">Record inward stock purchases with Supplier GSTIN, Batch No, Mfg Date, Expiry Date, and PTR.</div>
-          
-          <h3 style="font-size: 15px; font-weight: bold; margin-bottom: 12px; color: #047857;">➕ Add New Purchase Entry (खरेदी नोंदवा)</h3>
-          <form style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 24px;">
-            <div class="filter-group"><label>Supplier Name (पुरवठादार)</label><input type="text" class="form-control" placeholder="e.g. Cipla Healthcare"></div>
-            <div class="filter-group"><label>Supplier GSTIN (जीएसटी नंबर)</label><input type="text" class="form-control" placeholder="27AAACC1208H2Z5"></div>
-            <div class="filter-group"><label>Bill / Invoice No</label><input type="text" class="form-control" placeholder="PUR-2026-042"></div>
-            
-            <div class="filter-group"><label>Medicine Name (औषधाचे नाव)</label><input type="text" class="form-control" placeholder="e.g. Paracetamol 650mg"></div>
-            <div class="filter-group"><label>Batch Number (बॅच नं)</label><input type="text" class="form-control" placeholder="B204"></div>
-            <div class="filter-group"><label>Purchased Qty (नग)</label><input type="number" class="form-control" placeholder="100"></div>
-
-            <div class="filter-group"><label>📅 Mfg Date (उत्पादन तारीख)</label><input type="date" class="form-control" value="2025-08-01"></div>
-            <div class="filter-group"><label>📅 Expiry Date (एक्सपायरी)</label><input type="date" class="form-control" value="2027-08-15"></div>
-            <div class="filter-group"><label>Purchase Rate / PTR (₹)</label><input type="number" class="form-control" placeholder="22.50"></div>
-
-            <div style="grid-column: span 3;"><button type="button" class="btn-filter">📥 Save Purchase Entry</button></div>
-          </form>
-
-          <h3 style="font-size: 15px; font-weight: bold; margin-bottom: 12px; color: #334155;">📋 Inward Purchase Register (खरेदी रजिस्टर)</h3>
-          <div class="table-container">
-            <table>
-              <thead>
-                <tr>
-                  <th>Supplier Name</th>
-                  <th>Supplier GSTIN</th>
-                  <th>Bill No</th>
-                  <th>Medicine Name</th>
-                  <th>Batch No</th>
-                  <th>Mfg Date</th>
-                  <th>Expiry Date</th>
-                  <th>Qty</th>
-                  <th>PTR (₹)</th>
-                  <th>Total Purchase (₹)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td style="font-weight: 600;">Cipla Healthcare Dist.</td>
-                  <td style="font-size: 12px; color: #475569;">27AAACC1208H2Z5</td>
-                  <td style="font-weight: 600;">PUR-2026-042</td>
-                  <td>Paracetamol 650mg</td>
-                  <td><span class="status-badge status-warning">B204</span></td>
-                  <td>2025-08-01</td>
-                  <td>2027-08-15</td>
-                  <td>200 Qty</td>
-                  <td>₹ 22.50</td>
-                  <td style="font-weight: bold; color: #0f172a;">₹ 4,500.00</td>
-                </tr>
-                <tr>
-                  <td style="font-weight: 600;">Rootwell Pharma HQ</td>
-                  <td style="font-size: 12px; color: #475569;">27AABCR1234F1Z1</td>
-                  <td style="font-weight: 600;">PUR-2026-039</td>
-                  <td>Azithromycin 250mg</td>
-                  <td><span class="status-badge status-warning">AZ12</span></td>
-                  <td>2025-01-10</td>
-                  <td>2027-01-10</td>
-                  <td>350 Qty</td>
-                  <td>₹ 78.00</td>
-                  <td style="font-weight: bold; color: #0f172a;">₹ 27,300.00</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- PAGE 7: Accounts & Payments -->
-      <section id="accounts" class="page-section">
-        <div class="card">
-          <div class="card-title">💳 Accounts, Payment Receipts & Outstanding</div>
-          <div class="card-desc">Record received payments and monitor customer outstanding balances.</div>
-          
-          <div class="grid">
-            <div class="stat-box stat-green"><div class="label">Total Received (This Month)</div><div class="value">₹ 1,84,500</div></div>
-            <div class="stat-box stat-red"><div class="label">Total Outstanding Balance</div><div class="value">₹ 46,200</div></div>
-          </div>
-
-          <h3 style="font-size: 16px; font-weight: bold; margin-bottom: 12px; color: #334155;">➕ Record Payment Received</h3>
-          <form style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 24px; background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <div class="filter-group"><label>Customer Name</label><input type="text" class="form-control" placeholder="Select Customer"></div>
-            <div class="filter-group"><label>Amount Received (₹)</label><input type="number" class="form-control" placeholder="e.g. 5000"></div>
-            <div class="filter-group"><label>Payment Mode</label><select class="form-control"><option>UPI / PhonePe / GPay</option><option>Bank Transfer / NEFT</option><option>Cheque</option><option>Cash</option></select></div>
-            <div style="grid-column: span 3;"><button type="button" class="btn-filter">💾 Save Payment Receipt</button></div>
-          </form>
-
-          <h3 style="font-size: 16px; font-weight: bold; margin-bottom: 12px; color: #334155;">📋 Outstanding Balance Report</h3>
-          <div class="table-container">
-            <table>
-              <thead><tr><th>Customer / Medical</th><th>Total Billed</th><th>Paid Amount</th><th>Outstanding (बाकी)</th><th>Status</th></tr></thead>
-              <tbody>
-                <tr><td style="font-weight: 600;">Mahesh Medical & Healthcare</td><td>₹ 35,000</td><td>₹ 13,500</td><td style="font-weight: 600; color: #dc2626;">₹ 21,500</td><td><span class="status-badge status-danger">Overdue</span></td></tr>
-                <tr><td style="font-weight: 600;">Seema Pharma Distributors</td><td>₹ 18,200</td><td>₹ 10,000</td><td style="font-weight: 600; color: #d97706;">₹ 8,200</td><td><span class="status-badge status-warning">Pending</span></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- PAGE 8: Expiry Alert -->
-      <section id="expiry" class="page-section">
-        <div class="card">
-          <div class="card-title">⚠️ Expiry Alert & Inventory Report</div>
-          <div class="card-desc">Monitor expired and near-expiry medicine stock in real-time.</div>
-          <div class="grid">
-            <div class="stat-box stat-red"><div class="label">Expired Stock</div><div class="value">1 Items</div></div>
-            <div class="stat-box stat-amber"><div class="label">Near Expiry</div><div class="value">2 Items</div></div>
-            <div class="stat-box stat-blue"><div class="label">Total Tracked</div><div class="value">4 Items</div></div>
-          </div>
-          <div class="table-container">
-            <table>
-              <thead><tr><th>Medicine Name</th><th>Batch No</th><th>Remaining Stock</th><th>Expiry Date</th><th>Status</th></tr></thead>
-              <tbody>
-                <tr><td style="font-weight: 600;">Paracetamol 650mg</td><td>B204</td><td>120 Qty</td><td>2026-08-15</td><td><span class="status-badge status-warning">⚠️ Expiring Soon</span></td></tr>
-                <tr><td style="font-weight: 600;">Amoxicillin 500mg</td><td>AM99</td><td>45 Qty</td><td>2026-06-30</td><td><span class="status-badge status-danger">❌ Expired</span></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-    </main>
-
+        <section id="customer" class="page-section"><div class="card"><div class="card-title">👤 Customer Master</div></div></section>
+        <section id="supplier" class="page-section"><div class="card"><div class="card-title">🚛 Supplier Master</div></div></section>
+        <section id="accounts" class="page-section"><div class="card"><div class="card-title">💳 Accounts & Payments</div></div></section>
+        <section id="expiry" class="page-section"><div class="card"><div class="card-title">⚠️ Expiry Alert & Report</div></div></section>
+      </main>
+    </div>
   </div>
 
   <script>
+    function handleLogin(event) {
+      event.preventDefault();
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+      if (user === 'rohit' && pass === '1234') {
+        document.getElementById('login-page').style.display = 'none';
+        document.getElementById('app-page').style.display = 'flex';
+        document.getElementById('error-msg').style.display = 'none';
+      } else {
+        document.getElementById('error-msg').style.display = 'block';
+      }
+    }
+
+    function handleLogout() {
+      document.getElementById('app-page').style.display = 'none';
+      document.getElementById('login-page').style.display = 'flex';
+    }
+
     function showPage(pageId, element) {
       document.querySelectorAll('.page-section').forEach(page => page.classList.remove('active'));
       document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
@@ -396,6 +242,5 @@
       element.classList.add('active');
     }
   </script>
-
 </body>
 </html>
