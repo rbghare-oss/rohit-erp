@@ -6,31 +6,33 @@
   <title>Rootwell Pharma - Rohit ERP</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: #f1f5f9; color: #334155; }
+    body { background-color: #f1f5f9; color: #334155; display: flex; flex-direction: column; min-height: 100vh; }
     
     /* Header */
-    header { background-color: #047857; color: white; padding: 16px 24px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-    .header-container { max-width: 1152px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    header { background-color: #047857; color: white; padding: 16px 24px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); width: 100%; z-index: 10; }
+    .header-container { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
     .header-title { font-size: 24px; font-weight: bold; }
     .header-sub { font-size: 12px; color: #a7f3d0; margin-top: 2px; }
     .badge { background-color: #065f46; border: 1px solid #059669; font-size: 12px; padding: 4px 12px; border-radius: 9999px; }
     
-    /* Navigation */
-    nav { background-color: white; border-bottom: 1px solid #e2e8f0; }
-    .nav-container { max-width: 1152px; margin: 0 auto; display: flex; gap: 8px; padding: 8px; overflow-x: auto; }
-    .nav-btn { border: none; background: transparent; padding: 8px 16px; border-radius: 8px; color: #475569; font-size: 14px; font-weight: 500; cursor: pointer; }
-    .nav-btn:hover { background-color: #f1f5f9; }
+    /* Layout Container for Sidebar + Main Content */
+    .layout-container { display: flex; max-width: 1280px; width: 100%; margin: 24px auto; padding: 0 16px; gap: 24px; flex: 1; }
+    
+    /* Sidebar Navigation (Vertical) */
+    sidebar { width: 260px; background-color: white; border-radius: 12px; border: 1px solid #e2e8f0; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); height: fit-content; display: flex; flex-direction: column; gap: 8px; }
+    .nav-btn { border: none; background: transparent; padding: 12px 16px; border-radius: 8px; color: #475569; font-size: 14px; font-weight: 500; cursor: pointer; text-align: left; width: 100%; display: block; transition: background 0.2s; }
+    .nav-btn:hover { background-color: #f1f5f9; color: #047857; }
     .nav-btn-active { background-color: #059669; color: white; font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
 
-    /* Main Container */
-    main { max-width: 1152px; margin: 24px auto; padding: 0 16px; }
+    /* Main Content */
+    main { flex: 1; }
     .card { background-color: white; border-radius: 12px; border: 1px solid #e2e8f0; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
     
     .card-title { font-size: 20px; font-weight: bold; color: #1e293b; margin-bottom: 4px; }
     .card-desc { color: #64748b; font-size: 14px; margin-bottom: 24px; }
 
     /* Stats Grid */
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
     .stat-box { padding: 16px; border-radius: 8px; border: 1px solid; }
     .stat-expired { background-color: #fef2f2; border-color: #fecaca; }
     .stat-expired .label { color: #dc2626; }
@@ -74,86 +76,89 @@
     </div>
   </header>
 
-  <!-- Navigation Bar -->
-  <nav>
-    <div class="nav-container">
+  <!-- Layout Container: Sidebar + Main Content -->
+  <div class="layout-container">
+    
+    <!-- Vertical Sidebar Navigation -->
+    <sidebar>
       <button class="nav-btn">🧾 GST Billing</button>
       <button class="nav-btn">📦 Product Master</button>
       <button class="nav-btn">👤 Customer Master</button>
       <button class="nav-btn">🚛 Supplier Master</button>
       <button class="nav-btn">🛒 Purchase Management</button>
       <button class="nav-btn nav-btn-active">⚠️ Expiry Alert & Report</button>
-    </div>
-  </nav>
+    </sidebar>
 
-  <!-- Main Content -->
-  <main>
-    <div class="card">
-      <div class="card-title">⚠️ Expiry Alert & Report</div>
-      <div class="card-desc">Monitor expired and near-expiry medicine inventory in real-time.</div>
+    <!-- Main Content -->
+    <main>
+      <div class="card">
+        <div class="card-title">⚠️ Expiry Alert & Report</div>
+        <div class="card-desc">Monitor expired and near-expiry medicine inventory in real-time.</div>
 
-      <!-- Stat Cards -->
-      <div class="grid">
-        <div class="stat-box stat-expired">
-          <div class="label">Expired Stock</div>
-          <div class="value">1 Items</div>
+        <!-- Stat Cards -->
+        <div class="grid">
+          <div class="stat-box stat-expired">
+            <div class="label">Expired Stock</div>
+            <div class="value">1 Items</div>
+          </div>
+          <div class="stat-box stat-near">
+            <div class="label">Near Expiry</div>
+            <div class="value">2 Items</div>
+          </div>
+          <div class="stat-box stat-total">
+            <div class="label">Total Tracked Stock</div>
+            <div class="value">4 Items</div>
+          </div>
         </div>
-        <div class="stat-box stat-near">
-          <div class="label">Near Expiry</div>
-          <div class="value">2 Items</div>
-        </div>
-        <div class="stat-box stat-total">
-          <div class="label">Total Tracked Stock</div>
-          <div class="value">4 Items</div>
+
+        <!-- Table -->
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Medicine Name</th>
+                <th>Batch No</th>
+                <th>Remaining Stock</th>
+                <th>Expiry Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight: 600; color: #0f172a;">Paracetamol 650mg</td>
+                <td style="font-family: monospace; color: #475569;">B204</td>
+                <td>120 Qty</td>
+                <td>2026-08-15</td>
+                <td><span class="status-badge status-warning">⚠️ Expiring Soon</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight: 600; color: #0f172a;">Amoxicillin 500mg</td>
+                <td style="font-family: monospace; color: #475569;">AM99</td>
+                <td>45 Qty</td>
+                <td>2026-06-30</td>
+                <td><span class="status-badge status-danger">❌ Expired</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight: 600; color: #0f172a;">Azithromycin 250mg</td>
+                <td style="font-family: monospace; color: #475569;">AZ12</td>
+                <td>200 Qty</td>
+                <td>2027-01-10</td>
+                <td><span class="status-badge status-success">✅ Safe</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight: 600; color: #0f172a;">Cetirizine 10mg</td>
+                <td style="font-family: monospace; color: #475569;">CT88</td>
+                <td>80 Qty</td>
+                <td>2026-08-01</td>
+                <td><span class="status-badge status-warning">⚠️ Expiring Soon</span></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
+    </main>
 
-      <!-- Table -->
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th>Medicine Name</th>
-              <th>Batch No</th>
-              <th>Remaining Stock</th>
-              <th>Expiry Date</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="font-weight: 600; color: #0f172a;">Paracetamol 650mg</td>
-              <td style="font-family: monospace; color: #475569;">B204</td>
-              <td>120 Qty</td>
-              <td>2026-08-15</td>
-              <td><span class="status-badge status-warning">⚠️ Expiring Soon</span></td>
-            </tr>
-            <tr>
-              <td style="font-weight: 600; color: #0f172a;">Amoxicillin 500mg</td>
-              <td style="font-family: monospace; color: #475569;">AM99</td>
-              <td>45 Qty</td>
-              <td>2026-06-30</td>
-              <td><span class="status-badge status-danger">❌ Expired</span></td>
-            </tr>
-            <tr>
-              <td style="font-weight: 600; color: #0f172a;">Azithromycin 250mg</td>
-              <td style="font-family: monospace; color: #475569;">AZ12</td>
-              <td>200 Qty</td>
-              <td>2027-01-10</td>
-              <td><span class="status-badge status-success">✅ Safe</span></td>
-            </tr>
-            <tr>
-              <td style="font-weight: 600; color: #0f172a;">Cetirizine 10mg</td>
-              <td style="font-family: monospace; color: #475569;">CT88</td>
-              <td>80 Qty</td>
-              <td>2026-08-01</td>
-              <td><span class="status-badge status-warning">⚠️ Expiring Soon</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </main>
+  </div>
 
 </body>
 </html>
