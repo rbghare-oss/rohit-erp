@@ -44,7 +44,16 @@
     .stat-box .label { font-size: 11px; font-weight: bold; text-transform: uppercase; }
     .stat-box .value { font-size: 24px; font-weight: bold; margin-top: 4px; }
 
-    /* Tables & Forms */
+    /* Form & Filter Controls */
+    .filter-box { background-color: #f0fdf4; border: 2px solid #059669; padding: 16px; border-radius: 10px; display: flex; gap: 16px; align-items: flex-end; margin-bottom: 24px; flex-wrap: wrap; }
+    .filter-group { flex: 1; min-width: 180px; }
+    .filter-group label { display: block; font-size: 13px; font-weight: bold; color: #047857; margin-bottom: 6px; }
+    .form-control { width: 100%; padding: 10px 12px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 14px; outline: none; background-color: white; }
+    .form-control:focus { border-color: #059669; box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1); }
+    .btn-filter { background-color: #059669; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px; }
+    .btn-filter:hover { background-color: #047857; }
+
+    /* Tables */
     .table-container { overflow-x: auto; border-radius: 8px; border: 1px solid #e2e8f0; }
     table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
     th { background-color: #f8fafc; border-bottom: 1px solid #e2e8f0; color: #475569; font-size: 12px; text-transform: uppercase; padding: 12px; font-weight: 600; }
@@ -55,13 +64,6 @@
     .status-success { background-color: #d1fae5; color: #065f46; border-color: #6ee7b7; }
     .status-warning { background-color: #fef3c7; color: #92400e; border-color: #fcd34d; }
     .status-danger { background-color: #fee2e2; color: #991b1b; border-color: #fca5a5; }
-
-    .form-group { margin-bottom: 16px; }
-    .form-group label { display: block; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 6px; }
-    .form-control { width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 14px; outline: none; }
-    .form-control:focus { border-color: #059669; box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1); }
-    .btn-submit { background-color: #059669; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; }
-    .btn-submit:hover { background-color: #047857; }
   </style>
 </head>
 <body>
@@ -126,12 +128,12 @@
           <div class="card-title">🧾 GST Billing & Invoice Generation</div>
           <div class="card-desc">Create GST compliant invoices for your pharmacy customers.</div>
           <form style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
-            <div class="form-group"><label>Customer Name</label><input type="text" class="form-control" placeholder="Select or enter customer name"></div>
-            <div class="form-group"><label>Invoice Date</label><input type="date" class="form-control" value="2026-07-24"></div>
-            <div class="form-group"><label>Select Medicine</label><select class="form-control"><option>Paracetamol 650mg</option><option>Amoxicillin 500mg</option><option>Azithromycin 250mg</option></select></div>
-            <div class="form-group"><label>Quantity</label><input type="number" class="form-control" value="10"></div>
+            <div class="filter-group"><label>Customer Name</label><input type="text" class="form-control" placeholder="Select or enter customer name"></div>
+            <div class="filter-group"><label>Invoice Date</label><input type="date" class="form-control" value="2026-07-24"></div>
+            <div class="filter-group"><label>Select Medicine</label><select class="form-control"><option>Paracetamol 650mg</option><option>Amoxicillin 500mg</option><option>Azithromycin 250mg</option></select></div>
+            <div class="filter-group"><label>Quantity</label><input type="number" class="form-control" value="10"></div>
           </form>
-          <button class="btn-submit">➕ Generate Invoice</button>
+          <button class="btn-filter">➕ Generate Invoice</button>
         </div>
       </section>
 
@@ -139,9 +141,14 @@
       <section id="product" class="page-section">
         <div class="card">
           <div class="card-title">📦 Product Sale & Closing Stock Summary</div>
-          <div class="card-desc">Clear report showing Sale Quantity, Sale Value, Closing Quantity and Closing Value (at PTR).</div>
+          <div class="card-desc">Select date range to filter sales and closing stock valuation.</div>
           
-          <!-- Summary Header Cards -->
+          <div class="filter-box">
+            <div class="filter-group"><label>📅 From Date (कुठून)</label><input type="date" class="form-control" value="2026-07-01"></div>
+            <div class="filter-group"><label>📅 To Date (कुठंपर्यंत)</label><input type="date" class="form-control" value="2026-07-24"></div>
+            <div><button type="button" class="btn-filter">🔍 Filter Report</button></div>
+          </div>
+
           <div class="grid">
             <div class="stat-box stat-blue"><div class="label">Total Sale Quantity</div><div class="value">580 Qty</div></div>
             <div class="stat-box stat-purple"><div class="label">Total Sale Value</div><div class="value">₹ 22,540</div></div>
@@ -152,43 +159,13 @@
           <div class="table-container">
             <table>
               <thead>
-                <tr>
-                  <th>Medicine Name</th>
-                  <th>Sale Quantity</th>
-                  <th>Sale Value (₹)</th>
-                  <th>Closing Quantity</th>
-                  <th>Closing Value (₹)</th>
-                </tr>
+                <tr><th>Medicine Name</th><th>Sale Quantity</th><th>Sale Value (₹)</th><th>Closing Quantity</th><th>Closing Value (₹)</th></tr>
               </thead>
               <tbody>
-                <tr>
-                  <td style="font-weight: 600; color: #0f172a;">Paracetamol 650mg</td>
-                  <td style="color: #2563eb; font-weight: 600;">80 Qty</td>
-                  <td style="font-weight: 600;">₹ 2,280.00</td>
-                  <td style="color: #16a34a; font-weight: bold;">120 Qty</td>
-                  <td style="font-weight: bold; color: #0f172a;">₹ 2,700.00</td>
-                </tr>
-                <tr>
-                  <td style="font-weight: 600; color: #0f172a;">Amoxicillin 500mg</td>
-                  <td style="color: #2563eb; font-weight: 600;">105 Qty</td>
-                  <td style="font-weight: 600;">₹ 7,560.00</td>
-                  <td style="color: #dc2626; font-weight: bold;">45 Qty</td>
-                  <td style="font-weight: bold; color: #0f172a;">₹ 2,610.00</td>
-                </tr>
-                <tr>
-                  <td style="font-weight: 600; color: #0f172a;">Azithromycin 250mg</td>
-                  <td style="color: #2563eb; font-weight: 600;">150 Qty</td>
-                  <td style="font-weight: 600;">₹ 14,700.00</td>
-                  <td style="color: #16a34a; font-weight: bold;">200 Qty</td>
-                  <td style="font-weight: bold; color: #0f172a;">₹ 15,600.00</td>
-                </tr>
-                <tr>
-                  <td style="font-weight: 600; color: #0f172a;">Cetirizine 10mg</td>
-                  <td style="color: #2563eb; font-weight: 600;">245 Qty</td>
-                  <td style="font-weight: 600;">₹ 2,940.00</td>
-                  <td style="color: #16a34a; font-weight: bold;">80 Qty</td>
-                  <td style="font-weight: bold; color: #0f172a;">₹ 960.00</td>
-                </tr>
+                <tr><td style="font-weight: 600;">Paracetamol 650mg</td><td style="color: #2563eb; font-weight: 600;">80 Qty</td><td>₹ 2,280.00</td><td style="color: #16a34a; font-weight: bold;">120 Qty</td><td style="font-weight: bold;">₹ 2,700.00</td></tr>
+                <tr><td style="font-weight: 600;">Amoxicillin 500mg</td><td style="color: #2563eb; font-weight: 600;">105 Qty</td><td>₹ 7,560.00</td><td style="color: #dc2626; font-weight: bold;">45 Qty</td><td style="font-weight: bold;">₹ 2,610.00</td></tr>
+                <tr><td style="font-weight: 600;">Azithromycin 250mg</td><td style="color: #2563eb; font-weight: 600;">150 Qty</td><td>₹ 14,700.00</td><td style="color: #16a34a; font-weight: bold;">200 Qty</td><td style="font-weight: bold;">₹ 15,600.00</td></tr>
+                <tr><td style="font-weight: 600;">Cetirizine 10mg</td><td style="color: #2563eb; font-weight: 600;">245 Qty</td><td>₹ 2,940.00</td><td style="color: #16a34a; font-weight: bold;">80 Qty</td><td style="font-weight: bold;">₹ 960.00</td></tr>
               </tbody>
             </table>
           </div>
@@ -216,12 +193,13 @@
       <section id="supplier" class="page-section">
         <div class="card">
           <div class="card-title">🚛 Supplier Master Records</div>
-          <div class="card-desc">List of pharmaceutical companies and primary distributors.</div>
+          <div class="card-desc">List of pharmaceutical companies and primary distributors with GSTIN.</div>
           <div class="table-container">
             <table>
-              <thead><tr><th>Supplier Name</th><th>GSTIN</th><th>City</th><th>Status</th></tr></thead>
+              <thead><tr><th>Supplier Name</th><th>GSTIN Number</th><th>City</th><th>Status</th></tr></thead>
               <tbody>
                 <tr><td style="font-weight: 600;">Rootwell Pharma HQ</td><td>27AABCR1234F1Z1</td><td>Mumbai</td><td><span class="status-badge status-success">Active</span></td></tr>
+                <tr><td style="font-weight: 600;">Cipla Healthcare Dist.</td><td>27AAACC1208H2Z5</td><td>Pune</td><td><span class="status-badge status-success">Active</span></td></tr>
               </tbody>
             </table>
           </div>
@@ -231,9 +209,83 @@
       <!-- PAGE 6: Purchase Management -->
       <section id="purchase" class="page-section">
         <div class="card">
-          <div class="card-title">🛒 Purchase Order Management</div>
-          <div class="card-desc">Track inward stock purchases and stock entries.</div>
-          <p style="color: #64748b; font-size: 14px;">No new purchase orders pending today.</p>
+          <div class="card-title">🛒 Purchase Order & Stock Inward Entry</div>
+          <div class="card-desc">Record inward stock purchases with Supplier GSTIN, Batch No, Mfg Date, Expiry Date, and PTR.</div>
+          
+          <h3 style="font-size: 15px; font-weight: bold; margin-bottom: 12px; color: #047857;">➕ Add New Purchase Entry (खरेदी नोंदवा)</h3>
+          <form style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 24px;">
+            <div class="filter-group"><label>Supplier Name (पुरवठादार)</label><input type="text" class="form-control" placeholder="e.g. Cipla Healthcare"></div>
+            <div class="filter-group"><label>Supplier GSTIN (जीएसटी नंबर)</label><input type="text" class="form-control" placeholder="27AAACC1208H2Z5"></div>
+            <div class="filter-group"><label>Bill / Invoice No</label><input type="text" class="form-control" placeholder="PUR-2026-042"></div>
+            
+            <div class="filter-group"><label>Medicine Name (औषधाचे नाव)</label><input type="text" class="form-control" placeholder="e.g. Paracetamol 650mg"></div>
+            <div class="filter-group"><label>Batch Number (बॅच नं)</label><input type="text" class="form-control" placeholder="B204"></div>
+            <div class="filter-group"><label>Purchased Qty (नग)</label><input type="number" class="form-control" placeholder="100"></div>
+
+            <div class="filter-group"><label>📅 Mfg Date (उत्पादन तारीख)</label><input type="date" class="form-control" value="2025-08-01"></div>
+            <div class="filter-group"><label>📅 Expiry Date (एक्सपायरी)</label><input type="date" class="form-control" value="2027-08-15"></div>
+            <div class="filter-group"><label>Purchase Rate / PTR (₹)</label><input type="number" class="form-control" placeholder="22.50"></div>
+
+            <div style="grid-column: span 3;"><button type="button" class="btn-filter">📥 Save Purchase Entry</button></div>
+          </form>
+
+          <h3 style="font-size: 15px; font-weight: bold; margin-bottom: 12px; color: #334155;">📋 Inward Purchase Register (खरेदी रजिस्टर)</h3>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Supplier Name</th>
+                  <th>Supplier GSTIN</th>
+                  <th>Bill No</th>
+                  <th>Medicine Name</th>
+                  <th>Batch No</th>
+                  <th>Mfg Date</th>
+                  <th>Expiry Date</th>
+                  <th>Qty</th>
+                  <th>PTR (₹)</th>
+                  <th>Total Purchase (₹)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight: 600;">Cipla Healthcare Dist.</td>
+                  <td style="font-size: 12px; color: #475569;">27AAACC1208H2Z5</td>
+                  <td style="font-weight: 600;">PUR-2026-042</td>
+                  <td>Paracetamol 650mg</td>
+                  <td><span class="status-badge status-warning">B204</span></td>
+                  <td>2025-08-01</td>
+                  <td>2027-08-15</td>
+                  <td>200 Qty</td>
+                  <td>₹ 22.50</td>
+                  <td style="font-weight: bold; color: #0f172a;">₹ 4,500.00</td>
+                </tr>
+                <tr>
+                  <td style="font-weight: 600;">Rootwell Pharma HQ</td>
+                  <td style="font-size: 12px; color: #475569;">27AABCR1234F1Z1</td>
+                  <td style="font-weight: 600;">PUR-2026-039</td>
+                  <td>Azithromycin 250mg</td>
+                  <td><span class="status-badge status-warning">AZ12</span></td>
+                  <td>2025-01-10</td>
+                  <td>2027-01-10</td>
+                  <td>350 Qty</td>
+                  <td>₹ 78.00</td>
+                  <td style="font-weight: bold; color: #0f172a;">₹ 27,300.00</td>
+                </tr>
+                <tr>
+                  <td style="font-weight: 600;">Sun Pharma Agency</td>
+                  <td style="font-size: 12px; color: #475569;">27AABCS9821K1Z3</td>
+                  <td style="font-weight: 600;">PUR-2026-035</td>
+                  <td>Amoxicillin 500mg</td>
+                  <td><span class="status-badge status-warning">AM99</span></td>
+                  <td>2024-12-01</td>
+                  <td>2026-11-30</td>
+                  <td>150 Qty</td>
+                  <td>₹ 58.00</td>
+                  <td style="font-weight: bold; color: #0f172a;">₹ 8,700.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
 
@@ -243,22 +295,19 @@
           <div class="card-title">💳 Accounts, Payment Receipts & Outstanding</div>
           <div class="card-desc">Record received payments and monitor customer outstanding balances.</div>
           
-          <!-- Summary Cards -->
           <div class="grid">
             <div class="stat-box stat-green"><div class="label">Total Received (This Month)</div><div class="value">₹ 1,84,500</div></div>
             <div class="stat-box stat-red"><div class="label">Total Outstanding Balance</div><div class="value">₹ 46,200</div></div>
           </div>
 
-          <!-- Add Payment Receipt Form -->
           <h3 style="font-size: 16px; font-weight: bold; margin-bottom: 12px; color: #334155;">➕ Record Payment Received</h3>
           <form style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 24px; background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <div class="form-group"><label>Customer Name</label><input type="text" class="form-control" placeholder="Select Customer"></div>
-            <div class="form-group"><label>Amount Received (₹)</label><input type="number" class="form-control" placeholder="e.g. 5000"></div>
-            <div class="form-group"><label>Payment Mode</label><select class="form-control"><option>UPI / PhonePe / GPay</option><option>Bank Transfer / NEFT</option><option>Cheque</option><option>Cash</option></select></div>
-            <div style="grid-column: span 3;"><button type="button" class="btn-submit">💾 Save Payment Receipt</button></div>
+            <div class="filter-group"><label>Customer Name</label><input type="text" class="form-control" placeholder="Select Customer"></div>
+            <div class="filter-group"><label>Amount Received (₹)</label><input type="number" class="form-control" placeholder="e.g. 5000"></div>
+            <div class="filter-group"><label>Payment Mode</label><select class="form-control"><option>UPI / PhonePe / GPay</option><option>Bank Transfer / NEFT</option><option>Cheque</option><option>Cash</option></select></div>
+            <div style="grid-column: span 3;"><button type="button" class="btn-filter">💾 Save Payment Receipt</button></div>
           </form>
 
-          <!-- Outstanding Report Table -->
           <h3 style="font-size: 16px; font-weight: bold; margin-bottom: 12px; color: #334155;">📋 Outstanding Balance Report</h3>
           <div class="table-container">
             <table>
